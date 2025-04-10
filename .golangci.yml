@@ -46,12 +46,13 @@ linters:
         - "-SA2002"
 
 issues:
-  exclude-dirs:
-    - api
-    - internal/dto
+  exclude:
+    - path: api/**/*
+    - path: internal/dto/**/*
+  exclude-use-default: false
   max-issues-per-linter: 0
   max-same-issues: 0
 
 formatters:
   exclusions:
-    generated: true
+    generated: lax
