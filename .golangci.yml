@@ -1,58 +1,63 @@
 version: "2"
-
 run:
-  timeout: 5m
   tests: true
-
 linters:
   enable:
-    - errcheck
+    - contextcheck
     - goconst
     - gocritic
     - gocyclo
-    - govet
-    - ineffassign
     - nakedret
     - prealloc
-    - staticcheck
+    - rowserrcheck
+    - sloglint
+    - sqlclosecheck
     - unconvert
     - unparam
-    - unused
-    - sqlclosecheck
-    - rowserrcheck
-    - contextcheck
-    - sloglint
-
   settings:
     errcheck:
       check-blank: true
-    gocyclo:
-      min-complexity: 20
-    govet:
-      enable:
-        - shadow
     funlen:
       lines: 80
       statements: 50
     gocognit:
       min-complexity: 30
+    gocyclo:
+      min-complexity: 20
+    govet:
+      enable:
+        - shadow
     nakedret:
       max-func-lines: 50
     staticcheck:
       checks:
+        - -QF1001
+        - -SA2002
+        - -SA6000
         - all
-        - "-SA6000"
-        - "-QF1001"
-        - "-SA2002"
-
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      - path: (.+)\.go$
+        text: api
+      - path: (.+)\.go$
+        text: internal/dto
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
 issues:
-  exclude:
-    - path: api/**/*
-    - path: internal/dto/**/*
-  exclude-use-default: false
   max-issues-per-linter: 0
   max-same-issues: 0
-
 formatters:
   exclusions:
     generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
