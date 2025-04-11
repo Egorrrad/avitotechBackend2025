@@ -8,9 +8,11 @@ import (
 	"log"
 )
 
-var db *pgxpool.Pool
+type Database struct {
+	db *pgxpool.Pool
+}
 
-func connectDB(cfg *configs.PostgresConf) *pgxpool.Pool {
+func ConnectDB(cfg *configs.PostgresConf) *Database {
 	dsn := fmt.Sprintf(
 		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		cfg.Host,
@@ -21,13 +23,14 @@ func connectDB(cfg *configs.PostgresConf) *pgxpool.Pool {
 	)
 	config, err := pgxpool.ParseConfig(dsn)
 	if err != nil {
-		log.Fatalf("Unable to parse DB config: %v\n", err)
+		log.Fatal("Unable to parse DB config: %v\n", err)
 	}
 
 	dbpool, err := pgxpool.NewWithConfig(context.Background(), config)
 	if err != nil {
 		log.Fatalf("Unable to connect to database: %v\n", err)
 	}
+	db := &Database{db: dbpool}
 
-	return dbpool
+	return db
 }
