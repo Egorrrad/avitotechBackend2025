@@ -1,8 +1,8 @@
 package handlers
 
 import (
+	"avitotechBackend2025/internal/db"
 	"avitotechBackend2025/internal/dto"
-	"avitotechBackend2025/internal/models"
 	h "avitotechBackend2025/internal/pkg/http"
 	token "avitotechBackend2025/internal/pkg/jwt"
 	"encoding/json"
@@ -21,15 +21,14 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	// получаем юзера из бд
 
-	user := models.User{
-		Email:    "",
+	user := db.UserModel{
+		User:     dto.User{},
 		Password: "",
-		Role:     "",
 	}
 
 	role := user.Role
 
-	tokenString, err := token.GenerateToken(role)
+	tokenString, err := token.GenerateToken(string(role))
 	if err != nil {
 		h.SendError(w, http.StatusInternalServerError, h.ErrFailedGenerateToken)
 		return
