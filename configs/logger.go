@@ -1,4 +1,4 @@
-package logger
+package configs
 
 import (
 	"io"
@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-type Config struct {
+type LoggerConf struct {
 	Env        string `env:"APP_ENV" envDefault:"development"`
 	Level      string `env:"LOG_LEVEL" envDefault:"info"`
 	Output     string `env:"LOG_OUTPUT" envDefault:"stdout"`
@@ -16,7 +16,7 @@ type Config struct {
 	JSONFormat bool   `env:"LOG_JSON" envDefault:"false"`
 }
 
-func (c *Config) parseLevel() slog.Level {
+func (c *LoggerConf) ParseLevel() slog.Level {
 	switch strings.ToLower(c.Level) {
 	case "debug":
 		return slog.LevelDebug
@@ -31,7 +31,7 @@ func (c *Config) parseLevel() slog.Level {
 	}
 }
 
-func (c *Config) getOutput() (io.Writer, error) {
+func (c *LoggerConf) GetOutput() (io.Writer, error) {
 	switch c.Output {
 	case "stdout":
 		return os.Stdout, nil

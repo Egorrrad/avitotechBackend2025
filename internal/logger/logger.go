@@ -1,23 +1,24 @@
 package logger
 
 import (
+	"avitotechBackend2025/configs"
 	"log/slog"
 )
 
 type Logger struct {
 	*slog.Logger
-	config *Config
+	config *configs.LoggerConf
 }
 
-func New(cfg *Config) (*Logger, error) {
-	output, err := cfg.getOutput()
+func New(cfg *configs.LoggerConf) (*Logger, error) {
+	output, err := cfg.GetOutput()
 	if err != nil {
 		return nil, err
 	}
 
 	var handler slog.Handler
 	opts := &slog.HandlerOptions{
-		Level:     cfg.parseLevel(),
+		Level:     cfg.ParseLevel(),
 		AddSource: cfg.AddSource,
 	}
 
