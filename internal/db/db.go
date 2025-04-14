@@ -9,7 +9,7 @@ import (
 )
 
 type Database struct {
-	db *pgxpool.Pool
+	DB *pgxpool.Pool
 }
 
 func ConnectDB(cfg *configs.PostgresConf) *Database {
@@ -30,7 +30,7 @@ func ConnectDB(cfg *configs.PostgresConf) *Database {
 	if err != nil {
 		log.Fatalf("Unable to connect to database: %v\n", err)
 	}
-	db := &Database{db: dbpool}
+	db := &Database{DB: dbpool}
 
 	return db
 }
