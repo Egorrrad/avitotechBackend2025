@@ -1,29 +1,27 @@
 package handlers
 
 import (
-	"avitotechBackend2025/internal/dto"
-	h "avitotechBackend2025/internal/pkg/http"
 	"encoding/json"
-	"github.com/oapi-codegen/runtime/types"
+	"github.com/Egorrrad/avitotechBackend2025/internal/dto"
+	pkg "github.com/Egorrrad/avitotechBackend2025/internal/pkg/http"
 	"net/http"
 )
 
 // Products Добавление товара в текущую приемку (только для сотрудников ПВЗ)
-func Products(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) Products(w http.ResponseWriter, r *http.Request) {
 	var req dto.PostProductsJSONRequestBody
 
 	err := json.NewDecoder(r.Body).Decode(&req)
 	if err != nil {
-		h.SendError(w, http.StatusBadRequest, err.Error())
+		pkg.SendError(w, http.StatusBadRequest, err.Error())
 		return
 	}
 
-	response := dto.Product{
-		DateTime:    nil,
-		Id:          nil,
-		ReceptionId: types.UUID{},
-		Type:        "",
+	product, err := h.repository.AddProduct(r.Context(), req)
+
+	if err != nil {
+		pkg.SendError(w, http.StatusInternalServerError, err.Error())
 	}
 
-	h.RespondJSON(w, http.StatusCreated, response)
+	pkg.RespondJSON(w, http.StatusCreated, product)
 }

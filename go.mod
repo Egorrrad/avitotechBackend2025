@@ -1,4 +1,4 @@
-module avitotechBackend2025
+module github.com/Egorrrad/avitotechBackend2025
 
 go 1.24
 
@@ -32,7 +32,7 @@ require (
 	github.com/speakeasy-api/jsonpath v0.6.1 // indirect
 	github.com/speakeasy-api/openapi-overlay v0.10.1 // indirect
 	github.com/vmware-labs/yaml-jsonpath v0.3.2 // indirect
-	golang.org/x/crypto v0.31.0 // indirect
+	golang.org/x/crypto v0.37.0 // indirect
 	golang.org/x/mod v0.24.0 // indirect
 	golang.org/x/sync v0.13.0 // indirect
 	golang.org/x/text v0.24.0 // indirect

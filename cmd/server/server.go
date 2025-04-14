@@ -1,11 +1,11 @@
 package main
 
 import (
-	"avitotechBackend2025/configs"
-	"avitotechBackend2025/internal/logger"
-	"avitotechBackend2025/internal/routes"
 	"context"
 	"fmt"
+	"github.com/Egorrrad/avitotechBackend2025/configs"
+	"github.com/Egorrrad/avitotechBackend2025/internal/logger"
+	"github.com/Egorrrad/avitotechBackend2025/internal/routes"
 	"github.com/go-chi/chi/v5"
 	"log"
 	"net/http"

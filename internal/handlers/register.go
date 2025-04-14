@@ -8,7 +8,7 @@ import (
 )
 
 // Register Регистрация пользователя
-func Register(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 	var req dto.PostRegisterJSONRequestBody
 
 	err := json.NewDecoder(r.Body).Decode(&req)

@@ -3,13 +3,15 @@ package jwt
 import (
 	"errors"
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/oapi-codegen/runtime/types"
 	"time"
 )
 
 var jwtKey = []byte("your-secret-key") // можно подгружать из .env
 
 type CustomClaims struct {
-	Role string `json:"role"`
+	Role string     `json:"role"`
+	Id   types.UUID `json:"id"`
 	jwt.RegisteredClaims
 }
 

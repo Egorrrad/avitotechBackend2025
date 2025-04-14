@@ -1,14 +1,14 @@
 package handlers
 
 import (
-	h "avitotechBackend2025/internal/pkg/http"
+	pkg "github.com/Egorrrad/avitotechBackend2025/internal/pkg/http"
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 	"net/http"
 )
 
 // PvzIDDeleteLastProduct Удаление последнего добавленного товара из текущей приемки (LIFO, только для сотрудников ПВЗ)
-func PvzIDDeleteLastProduct(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) PvzIDDeleteLastProduct(w http.ResponseWriter, r *http.Request) {
 	pvzIDParam := chi.URLParam(r, "pvzId")
 
 	pvzID, err := uuid.Parse(pvzIDParam)
@@ -16,8 +16,13 @@ func PvzIDDeleteLastProduct(w http.ResponseWriter, r *http.Request) {
 	// нужно проверить, что  или не нужносо
 
 	if err != nil {
-		h.SendError(w, http.StatusBadRequest, "Invalid PVZ ID")
+		pkg.SendError(w, http.StatusBadRequest, "Invalid PVZ ID")
 	}
 
-	h.RespondJSON(w, http.StatusOK, pvzID)
+	err := h.repository.DeleteLastProduct(r.Context(), pvzID)
+	if err != nil {
+		return
+	}
+
+	pkg.RespondJSON(w, http.StatusOK, pvzID)
 }

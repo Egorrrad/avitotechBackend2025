@@ -1,15 +1,31 @@
-package db
+package database
 
 import (
-	"avitotechBackend2025/configs"
 	"context"
 	"fmt"
+	"github.com/Egorrrad/avitotechBackend2025/configs"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"log"
 )
 
 type Database struct {
 	DB *pgxpool.Pool
+}
+
+func NewDatabase(db *pgxpool.Pool) Database {
+	return Database{
+		DB: db,
+	}
+}
+
+type Repository struct {
+	db Database
+}
+
+func NewRepository(db Database) *Repository {
+	return &Repository{
+		db: db,
+	}
 }
 
 func ConnectDB(cfg *configs.PostgresConf) *Database {

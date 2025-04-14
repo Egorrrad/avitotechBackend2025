@@ -1,32 +1,28 @@
 package handlers
 
 import (
-	"avitotechBackend2025/internal/dto"
-	h "avitotechBackend2025/internal/pkg/http"
 	"encoding/json"
-	"github.com/oapi-codegen/runtime/types"
+	"github.com/Egorrrad/avitotechBackend2025/internal/dto"
+	pkg "github.com/Egorrrad/avitotechBackend2025/internal/pkg/http"
 	"net/http"
-	"time"
 )
 
 // Receptions Создание новой приемки товаров (только для сотрудников ПВЗ)
-func Receptions(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) Receptions(w http.ResponseWriter, r *http.Request) {
 	var req dto.PostReceptionsJSONRequestBody
 
 	err := json.NewDecoder(r.Body).Decode(&req)
 	if err != nil {
-		h.SendError(w, http.StatusBadRequest, err.Error())
+		pkg.SendError(w, http.StatusBadRequest, err.Error())
 		return
 	}
 
-	response := dto.Reception{
-		DateTime: time.Time{},
-		Id:       nil,
-		PvzId:    types.UUID{},
-		Status:   "",
+	reception, err := h.repository.AddReception(r.Context(), req)
+
+	if err != nil {
+		pkg.SendError(w, http.StatusInternalServerError, err.Error())
 	}
 
-	// Возврат ответа
-	h.RespondJSON(w, http.StatusCreated, response)
+	pkg.RespondJSON(w, http.StatusCreated, reception)
 
 }

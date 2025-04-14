@@ -1,8 +1,8 @@
 package main
 
 import (
-	"avitotechBackend2025/configs"
 	"context"
+	"github.com/Egorrrad/avitotechBackend2025/configs"
 	"log/slog"
 )
 

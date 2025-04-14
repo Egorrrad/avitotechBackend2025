@@ -1,32 +1,30 @@
 package handlers
 
 import (
-	"avitotechBackend2025/internal/dto"
-	h "avitotechBackend2025/internal/pkg/http"
+	pkg "github.com/Egorrrad/avitotechBackend2025/internal/pkg/http"
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 	"net/http"
-	"time"
+	_ "time"
 )
 
 // PvzIdCloseLastReception Закрытие последней открытой приемки товаров в рамках ПВЗ
-func PvzIDCloseLastReception(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) PvzIDCloseLastReception(w http.ResponseWriter, r *http.Request) {
 	pvzIDParam := chi.URLParam(r, "pvzID")
 
 	pvzID, err := uuid.Parse(pvzIDParam)
 
 	if err != nil {
-		h.SendError(w, http.StatusBadRequest, "Invalid PVZ ID")
+
+		pkg.SendError(w, http.StatusBadRequest, "Invalid PVZ ID")
 	}
 
 	// логuика закрытия пвз
 
-	response := dto.Reception{
-		DateTime: time.Time{},
-		Id:       nil,
-		PvzId:    pvzID,
-		Status:   "closed",
-	}
+	reception, err := h.repository.CloseReception(r.Context(), pvzID)
 
-	h.RespondJSON(w, http.StatusOK, response)
+	if err != nil {
+		pkg.SendError(w, http.StatusInternalServerError, err.Error())
+	}
+	pkg.RespondJSON(w, http.StatusOK, reception)
 }

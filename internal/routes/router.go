@@ -1,14 +1,14 @@
 package routes
 
 import (
-	"avitotechBackend2025/internal/dto"
-	"avitotechBackend2025/internal/handlers"
-	"avitotechBackend2025/internal/middlewares"
+	"github.com/Egorrrad/avitotechBackend2025/internal/dto"
+	"github.com/Egorrrad/avitotechBackend2025/internal/handlers"
+	"github.com/Egorrrad/avitotechBackend2025/internal/middlewares"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )
 
-func InitRouter() *chi.Mux {
+func (s *Server) InitRouter() *chi.Mux {
 	r := chi.NewRouter()
 
 	r.Use(middlewares.LoggerMiddleware)

@@ -1,10 +1,10 @@
 package middlewares
 
 import (
-	"avitotechBackend2025/internal/dto"
-	helper "avitotechBackend2025/internal/pkg/http"
-	token "avitotechBackend2025/internal/pkg/jwt"
 	"context"
+	"github.com/Egorrrad/avitotechBackend2025/internal/dto"
+	helper "github.com/Egorrrad/avitotechBackend2025/internal/pkg/http"
+	token "github.com/Egorrrad/avitotechBackend2025/internal/pkg/jwt"
 	"net/http"
 	"strings"
 )
@@ -32,7 +32,6 @@ func AuthMiddleware(handler http.Handler) http.Handler {
 		if err != nil {
 			helper.SendError(w, http.StatusForbidden, helper.ErrInvalidToken)
 		}
-
 		ctx := context.WithValue(r.Context(), dto.UserRoleKey, claims.Role)
 		handler.ServeHTTP(w, r.WithContext(ctx))
 	})

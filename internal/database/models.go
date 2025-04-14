@@ -1,7 +1,7 @@
-package db
+package database
 
 import (
-	"avitotechBackend2025/internal/dto"
+	"github.com/Egorrrad/avitotechBackend2025/internal/dto"
 	"github.com/oapi-codegen/runtime/types"
 )
 
@@ -12,7 +12,7 @@ type UserModel struct {
 
 type PvzModel struct {
 	dto.PVZ
-	createdBy types.UUID
+	CreatedBy types.UUID
 }
 
 type ReceptionModel struct {
