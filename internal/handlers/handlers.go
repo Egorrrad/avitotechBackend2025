@@ -1,18 +1,18 @@
 package handlers
 
 import (
+	"github.com/Egorrrad/avitotechBackend2025/internal/logger"
 	"github.com/Egorrrad/avitotechBackend2025/internal/repository"
-	"log/slog"
 )
 
 type Handler struct {
-	repository repository.DataManager
-	logger     *slog.Logger
+	Repository repository.DataManager
+	Logger     *logger.Logger
 }
 
-func New(r repository.DataManager, l *slog.Logger) Handler {
+func New(r repository.DataManager, l *logger.Logger) Handler {
 	return Handler{
-		repository: r,
-		logger:     l,
+		Repository: r,
+		Logger:     l,
 	}
 }

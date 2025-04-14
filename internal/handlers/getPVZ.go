@@ -17,7 +17,7 @@ func (h *Handler) GetPVZ(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	pvzArr, err := h.repository.GetAllPvz(r.Context(), req)
+	pvzArr, err := h.Repository.GetAllPvz(r.Context(), req)
 
 	if err != nil {
 		pkg.SendError(w, http.StatusInternalServerError, err.Error())

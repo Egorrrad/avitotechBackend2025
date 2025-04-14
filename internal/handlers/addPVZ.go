@@ -21,7 +21,7 @@ func (h *Handler) AddPVZ(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	pvz, err := h.repository.AddPVZ(r.Context(), req)
+	pvz, err := h.Repository.AddPVZ(r.Context(), req)
 
 	if err != nil {
 		pkg.SendError(w, http.StatusInternalServerError, err.Error())

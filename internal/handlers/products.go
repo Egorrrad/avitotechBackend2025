@@ -17,7 +17,7 @@ func (h *Handler) Products(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	product, err := h.repository.AddProduct(r.Context(), req)
+	product, err := h.Repository.AddProduct(r.Context(), req)
 
 	if err != nil {
 		pkg.SendError(w, http.StatusInternalServerError, err.Error())

@@ -21,7 +21,7 @@ func (h *Handler) PvzIDCloseLastReception(w http.ResponseWriter, r *http.Request
 
 	// логuика закрытия пвз
 
-	reception, err := h.repository.CloseReception(r.Context(), pvzID)
+	reception, err := h.Repository.CloseReception(r.Context(), pvzID)
 
 	if err != nil {
 		pkg.SendError(w, http.StatusInternalServerError, err.Error())

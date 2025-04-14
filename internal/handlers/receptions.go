@@ -17,7 +17,7 @@ func (h *Handler) Receptions(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	reception, err := h.repository.AddReception(r.Context(), req)
+	reception, err := h.Repository.AddReception(r.Context(), req)
 
 	if err != nil {
 		pkg.SendError(w, http.StatusInternalServerError, err.Error())

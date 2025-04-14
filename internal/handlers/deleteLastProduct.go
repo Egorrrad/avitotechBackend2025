@@ -19,7 +19,7 @@ func (h *Handler) PvzIDDeleteLastProduct(w http.ResponseWriter, r *http.Request)
 		pkg.SendError(w, http.StatusBadRequest, "Invalid PVZ ID")
 	}
 
-	err := h.repository.DeleteLastProduct(r.Context(), pvzID)
+	err = h.Repository.DeleteLastProduct(r.Context(), pvzID)
 	if err != nil {
 		return
 	}
